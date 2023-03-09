@@ -12,6 +12,7 @@ import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
+    @IBOutlet var mapView: MKMapView!
     let motionManager = CMMotionManager()
     var timer: Timer!
     
@@ -73,7 +74,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         })
         
-        print(location)
+        // MARK: - Map View
+        // Center our position on the map
+        mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
+                                             latitudinalMeters: 1000,
+        longitudinalMeters: 1000), animated: true)
+        
+        //print(location)
     }
 }
 
