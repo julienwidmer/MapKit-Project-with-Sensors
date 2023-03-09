@@ -56,6 +56,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    var pin: MKPlacemark!
+    
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         // Unwrap value or return if none
@@ -79,6 +81,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.setRegion(MKCoordinateRegion(center: location.coordinate,
                                              latitudinalMeters: 1000,
         longitudinalMeters: 1000), animated: true)
+        
+        // Create MKPlacemark
+        pin = MKPlacemark(coordinate: location.coordinate)
+        
+        // Add on map
+        mapView.addAnnotation(pin)
         
         //print(location)
     }
