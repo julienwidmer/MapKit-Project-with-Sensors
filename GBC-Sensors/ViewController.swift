@@ -27,7 +27,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         locationManager.requestWhenInUseAuthorization()
         
-        locationManager.startUpdatingLocation()
+        // Get every update
+        //locationManager.startUpdatingLocation()
+        
+        // Get significant location update only
+        locationManager.startMonitoringSignificantLocationChanges()
         
         
         // MARK: - Accelerometer (Timer has been commented out)
