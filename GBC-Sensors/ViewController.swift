@@ -12,9 +12,20 @@ import MapKit
 
 class ViewController: UIViewController {
 
+    let motionManager = CMMotionManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        if motionManager.isAccelerometerAvailable &&
+            motionManager.isAccelerometerActive {
+            print("We have access to the accelerometer.")
+        } else {
+            print("Accelerometer not available.")
+        }
+        
+        print("Available: \(motionManager.isAccelerometerAvailable)")
+        print("Active: \(motionManager.isAccelerometerActive)")
     }
 
 
