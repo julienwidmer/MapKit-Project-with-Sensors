@@ -82,10 +82,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                              latitudinalMeters: 1000,
         longitudinalMeters: 1000), animated: true)
         
+        
         // Create MKPlacemark
         pin = MKPlacemark(coordinate: location.coordinate)
         
-        // Add on map
+        // Remove previous pin
+        if pin != nil {
+            mapView.removeAnnotation(pin)
+        }
+        
+        // Add pin on map
         mapView.addAnnotation(pin)
         
         //print(location)
