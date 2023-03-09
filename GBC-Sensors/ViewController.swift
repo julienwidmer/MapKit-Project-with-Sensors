@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import CoreMotion // accelerometer and friends
+import CoreLocation // GPS etc
+import MapKit
 
 class ViewController: UIViewController {
 
