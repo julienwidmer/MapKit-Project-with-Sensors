@@ -10,14 +10,25 @@ import CoreMotion // accelerometer and friends
 import CoreLocation // GPS etc
 import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let motionManager = CMMotionManager()
     var timer: Timer!
     
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: - Location
+        // Set delegate
+        locationManager.delegate = self
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+        locationManager.startUpdatingLocation()
+        
+        // MARK: - Accelerometer (Timer has been commented out)
         if motionManager.isAccelerometerAvailable &&
             motionManager.isAccelerometerActive {
             print("We have access to the accelerometer.")
@@ -29,8 +40,10 @@ class ViewController: UIViewController {
         print("Active: \(motionManager.isAccelerometerActive)")
         
         // Repeat every 3sec
+        /*
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true,
                                      block: updateMovement)
+         */
     }
     
     func updateMovement(_ timer: Timer) {
@@ -39,6 +52,14 @@ class ViewController: UIViewController {
         } else {
             print("No sensor / No data")
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        // Unwrap value or return if none
+        guard let location = locations.last else { return }
+        
+        print(location)
     }
 }
 
