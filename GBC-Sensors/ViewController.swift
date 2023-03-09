@@ -13,6 +13,7 @@ import MapKit
 class ViewController: UIViewController {
 
     let motionManager = CMMotionManager()
+    var timer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,13 @@ class ViewController: UIViewController {
         
         print("Available: \(motionManager.isAccelerometerAvailable)")
         print("Active: \(motionManager.isAccelerometerActive)")
+        
+        // Repeat every 3sec
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true,
+                                     block: updateMovement)
     }
     
-    func updateMovement() {
+    func updateMovement(_ timer: Timer) {
         if let accelerometerData = motionManager.accelerometerData {
             print(accelerometerData)
         } else {
