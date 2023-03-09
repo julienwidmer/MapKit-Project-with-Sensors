@@ -28,6 +28,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         locationManager.startUpdatingLocation()
         
+        
         // MARK: - Accelerometer (Timer has been commented out)
         if motionManager.isAccelerometerAvailable &&
             motionManager.isAccelerometerActive {
@@ -58,6 +59,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                          didUpdateLocations locations: [CLLocation]) {
         // Unwrap value or return if none
         guard let location = locations.last else { return }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (places, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+            
+            if let places = places {
+                for place in places {
+                    print("Name: \(place.name ?? "N/A"), Description: \(place.description)")
+                }
+            }
+        })
         
         print(location)
     }
