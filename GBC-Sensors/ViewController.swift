@@ -27,7 +27,13 @@ class ViewController: UIViewController {
         print("Available: \(motionManager.isAccelerometerAvailable)")
         print("Active: \(motionManager.isAccelerometerActive)")
     }
-
-
+    
+    func updateMovement() {
+        if let accelerometerData = motionManager.accelerometerData {
+            print(accelerometerData)
+        } else {
+            print("No sensor / No data")
+        }
+    }
 }
 
