@@ -28,11 +28,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         
         // Get every update
-        //locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
         
         // Get significant location update only
-        locationManager.startMonitoringSignificantLocationChanges()
+        //locationManager.startMonitoringSignificantLocationChanges()
         
+        // MARK: Requires extra listener method
+        locationManager.startMonitoringVisits()
+        
+       // Display user current location with a blue dot on the map
+       //mapView.showsUserLocation = true
         
         // MARK: - Accelerometer (Timer has been commented out)
         if motionManager.isAccelerometerAvailable &&
@@ -99,6 +104,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.addAnnotation(pin)
         
         //print(location)
+    }
+    
+    // MARK: - Required for locationManager.startMonitoringVisits()
+    func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+        print("--- DID VISIT ---")
+        print("Description: \(visit.description)")
     }
 }
 
